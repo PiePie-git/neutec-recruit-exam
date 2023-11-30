@@ -1,5 +1,5 @@
 <template>
-    <div ref="sidebar" class="sidebar" :class="{ 'open': sidebarActive, 'close': !sidebarActive }">
+    <div ref="sidebar" class="sidebar" :class="{ 'sidebar-open': sidebarActive, 'sidebar-close': !sidebarActive }">
         <div class="menu" :class="{ 'enable-bg': item.enable }" v-for="item in data" @click="toggleEnable(item)">
             <span :class="{ 'enable-color': item.enable }">{{ item.text }}</span>
             <sidebarChildren :data="item.children" v-if="item.children && item.enable"/>
@@ -137,36 +137,3 @@ export default {
     }
 }
 </script>
-<style>
-.sidebar {
-    background-color: black;
-    width: 50%;
-    height: 100%;
-    padding: 1rem;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    right: -50%;
-    overflow-y: auto;
-    z-index: 2;
-    transition: right 0.5s;
-}
-.open{
-    right: 0;
-}
-.close{
-    right: -50%;
-}
-.menu {
-    padding: 0.5rem;
-}
-.enable-bg {
-    background-color: gray;
-}
-.enable-color {
-    color: yellow;
-}
-.child {
-    margin-left: 1rem;
-}
-</style>

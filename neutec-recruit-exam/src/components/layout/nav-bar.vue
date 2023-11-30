@@ -13,10 +13,3 @@ export default {
     }
 }
 </script>
-<style>
-.navbar {
-    background-color: white;
-    padding: 0.2rem;
-    height: 30px;
-}
-</style>
