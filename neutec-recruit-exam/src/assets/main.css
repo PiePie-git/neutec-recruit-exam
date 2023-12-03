@@ -201,3 +201,18 @@ a,
   top: 20%;
   left: 40%
 }
+
+/* select */
+.select-area {
+  width: 100%;
+  margin-top: 1rem;
+}
+.custom-select {
+  width: 100%;
+  font-size: 0.8rem;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+}

@@ -6,9 +6,9 @@
         </div>
 
         <!-- extra demo 2-1 start -->
-        <div class="select" v-if="path == '/advanced_demo'">
-            <select v-model="selected">
-                <option :value="null">请选择</option>
+        <div class="select-area" v-if="path == '/advanced_demo'">
+            <select class="custom-select" v-model="selected">
+                <option :value="null">請選擇</option>
                 <template v-for="item in data" :key="item.key">
                     <option :value="item.key">
                         {{ item.text }}
