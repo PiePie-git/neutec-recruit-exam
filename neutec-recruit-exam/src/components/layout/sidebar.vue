@@ -4,6 +4,29 @@
             <span :class="{ 'enable-color': item.enable }">{{ item.text }}</span>
             <sidebarChildren :data="item.children" v-if="item.children && item.enable"/>
         </div>
+
+        <!-- extra demo 2-1 start -->
+        <div class="select" v-if="path == '/advanced_demo'">
+            <select v-model="selected">
+                <option :value="null">请选择</option>
+                <template v-for="item in data" :key="item.key">
+                    <option :value="item.key">
+                        {{ item.text }}
+                    </option>
+                    <template v-for="item2 in item.children" :key="item2.key" v-if="item.children">
+                        <option :value="item2.key">
+                            {{ item.text }}-{{ item2.text }}
+                        </option>
+                        <template v-for="item3 in item2.children" :key="item3.key" v-if="item2.children">
+                            <option :value="item3.key">
+                                {{ item.text }}-{{ item2.text }}-{{ item3.text }}
+                            </option>
+                        </template>
+                    </template>
+                </template>
+            </select>
+        </div>
+        <!-- extra demo 2-1 end -->
     </div>
 </template>
 <script>
@@ -97,16 +120,51 @@ export default {
                         }]
                     }]
                 }
-            ]
+            ],
+            path: location.pathname,
+            selected: null,
         }
     },
     mounted() {
+        // extra demo 2-2
+        if(localStorage.getItem('toggle') && this.path == '/advanced_demo') this.data = JSON.parse(localStorage.getItem('toggle'))
     },
     watch: {
         sidebarActive(v) {
             this.timeout = setTimeout(() => {
                 v == true ? document.addEventListener('click', this.handleClickOutside) : document.removeEventListener('click', this.handleClickOutside);
             }, 100)
+        },
+        // extra demo 2-1
+        selected(v) {
+            if (v == null) return
+            this.disableAllOption()
+
+            const selectedItem = this.data.find(item => item.key === v);
+            if (selectedItem) {
+                selectedItem.enable = true;
+            }
+
+            this.data.forEach(item => {
+                const selectedItem = item.children.find(item2 => item2.key === v);
+                if (selectedItem) {
+                    selectedItem.enable = true;
+                    item.enable = true;
+                }
+
+                item.children.forEach(item2 => {
+                    var selectedItem = false
+                    if (item2.children) selectedItem = item2.children.find(item3 => item3.key === v);
+                    if (selectedItem) {
+                        selectedItem.enable = true;
+                        item.enable = true;
+                        item2.enable = true;
+                    }
+                })
+            })
+
+            // extra demo 2-2
+            localStorage.setItem('toggle', JSON.stringify(this.data))
         }
     },
     computed: {
@@ -115,12 +173,29 @@ export default {
         }
     },
     methods: {
+        // disable all option
+        disableAllOption() {
+            this.data.forEach(item => {
+                item.enable = false;
+                if (!item.children) return
+                item.children.forEach(item2 => {
+                    item2.enable = false;
+                    if (!item2.children) return
+                    item2.children.forEach(item3 => {
+                        item3.enable = false;
+                    });
+                });
+            });
+        },
         // Open the enable toggle
-        toggleEnable(item) {
+        toggleEnable(selected) {
             this.data.forEach(e => {
                 e.enable = false
             });
-            item.enable = !item.enable;
+            selected.enable = !selected.enable;
+            
+            // extra demo 2-2
+            if (this.path == '/advanced_demo') localStorage.setItem('toggle', JSON.stringify(this.data))
         },
         // Close sidebar if click outside
         handleClickOutside(event) {

@@ -100,13 +100,13 @@ a,
 /* sidebar */
 .sidebar {
   background-color: black;
-  width: 50%;
+  width: 60%;
   height: 100%;
   padding: 1rem;
   color: #fff;
   position: fixed;
   top: 0;
-  right: -50%;
+  right: -60%;
   overflow-y: auto;
   z-index: 2;
   transition: right 0.5s;
@@ -115,7 +115,7 @@ a,
   right: 0;
 }
 .sidebar-close{
-  right: -50%;
+  right: -60%;
 }
 .sidebar .menu {
   padding: 0.5rem;
@@ -135,4 +135,69 @@ a,
   background-color: white;
   padding: 0.2rem;
   height: 30px;
+}
+
+/* multiple animation demo */
+.extra-ball {
+  width: 30px;
+  height: 30px;
+  background-color: #A5F12B;
+  border-radius: 100%;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  z-index: 1;
+  transition: all 1s ease;
+  animation: shake 1s;
+}
+.extra-enter-from, .extra-leave-to {
+  left: 15%;
+  background-color: #A5F12B;
+}
+.extra-enter-to, .extra-leave-from {
+  left: 75%;
+  background-color: #492bf1;
+}
+@keyframes shake {
+  10%, 90% {transform: translate3d(0, -4px, 0);}
+  20%, 80% {transform: translate3d(0, 4px, 0);}
+  30%, 50%, 70% {transform: translate3d(0, -4px, 0);}
+  40%, 60% {transform: translate3d(0, 4px, 0);}
+}
+
+/* Move to the same point demo */
+.extra-ball2 {
+  width: 30px;
+  height: 30px;
+  background-color: #A5F12B;
+  border-radius: 100%;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 25%;
+  /* transform: translate(-50%, -50%); */
+  z-index: 1;
+  transition: all 1s ease;
+}
+.left-1 {
+  left: 10%;
+}
+.left-2 {
+  left: 30%;
+}
+.left-3 {
+  left: 60%;
+}
+.left-4 {
+  left: 80%;
+}
+.extra2-enter-to, .extra2-leave {
+  top: 20%;
+  left: 40%
 }
