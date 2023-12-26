@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Demo from '@/views/demo.vue'
 import AdvancedDemo from '@/views/advanced_demo.vue'
 import CanvasDemo from '@/views/canvas_demo.vue'
+import CompositionDemo from '@/views/composition_demo.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -17,6 +18,10 @@ export const router = createRouter({
         {
             path: '/canvas_demo',
             component: CanvasDemo
+        },
+        {
+            path: '/composition_demo',
+            component: CompositionDemo
         },
     ]
 })
